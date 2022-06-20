@@ -9,6 +9,7 @@ import { Button } from '@material-tailwind/react';
 import { ShareIcon } from '@heroicons/react/solid'
 import TextEditor from '../../components/TextEditor';
 import { useSession, getSession } from 'next-auth/react'
+import Login from '../../components/Login';
 
 const Doc = () => {
     const {data:session}= useSession();

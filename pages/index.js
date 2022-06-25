@@ -13,14 +13,16 @@ import { useState } from 'react';
 import Modal from '../components/Modal';
 import { useRecoilState } from 'recoil'
 import { modalState } from '../atoms/modalAtoms'
-import { useCollection } from 'react-firebase-hooks/firestore';
+import { useCollection, useCollectionOnce } from 'react-firebase-hooks/firestore';
 import DocumentRow from '../components/DocumentRow';
+import { onSnapshot,getFirestore  } from 'firebase/firestore';
 
 
 export default function Home() {
   const {data:session}= useSession();
   const[open,setOpen]=useRecoilState(modalState)
-  const [snapshot] = useCollection(query(collection(db,'userDocs',session?.user?.email,'docs'),orderBy("timestamp","desc")));
+  const [snapshot] = useCollectionOnce(query(collection(db,'userDocs',session?.user?.email,'docs'),orderBy("timestamp","desc")));
+  
 
   if (session) {
     const usersRef=doc(db,'docusers',session?.user?.uid)

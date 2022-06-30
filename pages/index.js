@@ -23,6 +23,8 @@ export default function Home() {
   const[open,setOpen]=useRecoilState(modalState)
   const [snapshot,setSnapshot] = useState();
   
+  if(!session) return <Login/>
+  
   useEffect(()=>{
     return onSnapshot(query(collection(db,'userDocs',session?.user?.email,'docs'),orderBy("timestamp","desc")),(snapshot)=>{
       setSnapshot(snapshot?.docs)
@@ -39,7 +41,6 @@ export default function Home() {
       },{merge:true})
   };
   
-  if(!session) return <Login/>
   
 
   return (

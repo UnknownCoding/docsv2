@@ -9,17 +9,6 @@ import { RecoilRoot } from 'recoil'
 
 function MyApp({ Component, pageProps:{session,...pageProps} }) {
   
-  // if (session) {
-  //   const usersRef=doc(db,'docusers',session?.user?.uid)
-  //   setDoc(usersRef,{
-  //     id:user.uid,
-  //     email:user.email,
-  //     profileImg:user.photoURL,
-  //     lastseen: serverTimestamp()
-  //     },{merge:true})
-  // };
-
-
   return(
     <SessionProvider session={session}>
       <ThemeProvider>

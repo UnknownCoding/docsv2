@@ -9,7 +9,7 @@ import { useSession, getSession } from 'next-auth/react'
 import Login from '../components/Login';
 import {setDoc,doc, collection,serverTimestamp ,query,orderBy} from 'firebase/firestore'
 import { db } from '../firebase'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Modal from '../components/Modal';
 import { useRecoilState } from 'recoil'
 import { modalState } from '../atoms/modalAtoms'
@@ -20,13 +20,17 @@ import { onSnapshot,getFirestore  } from 'firebase/firestore';
 
 export default function Home() {
   const {data:session}= useSession();
-  if(!session){
-    return <Login/>
-  }
   const[open,setOpen]=useRecoilState(modalState)
-  const [snapshot] = useCollectionOnce(query(collection(db,'userDocs',session?.user?.email,'docs'),orderBy("timestamp","desc")));
+  const [snapshot,setSnapshot] = useState();
   
-
+  useEffect(()=>{
+    return onSnapshot(query(collection(db,'userDocs',session?.user?.email,'docs'),orderBy("timestamp","desc")),(snapshot)=>{
+      setSnapshot(snapshot?.docs)
+    })
+  },[db])
+  
+  if(!session)return <Login/>
+  
   if (session) {
     const usersRef=doc(db,'docusers',session?.user?.uid)
     setDoc(usersRef,{
@@ -74,7 +78,7 @@ export default function Home() {
             <p className='mr-12'>Date Created</p>
             <FolderIcon className='w-6 h-6'/>
           </div>
-          {snapshot?.docs?.map((doc)=>(
+          {snapshot?.map((doc)=>(
             <DocumentRow key={doc?.id} id={doc?.id} filename={doc?.data()?.filename} date={doc?.data()?.timestamp}/>
           ))}
         </div>

@@ -28,9 +28,7 @@ export default function Home() {
       setSnapshot(snapshot?.docs)
     })
   },[db])
-  
-  if(!session)return <Login/>
-  
+    
   if (session) {
     const usersRef=doc(db,'docusers',session?.user?.uid)
     setDoc(usersRef,{

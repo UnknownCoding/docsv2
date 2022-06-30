@@ -31,15 +31,15 @@ export default function Home() {
   },[db])
   
   
-  if (session) {
-    const usersRef=doc(db,'docusers',session?.user?.uid)
-    setDoc(usersRef,{
-      id:session?.user?.uid,
-      email:session?.user?.email,
-      profileImg:session?.user?.image,
-      lastseen: serverTimestamp()
-    },{merge:true})
-  };
+  // if (session) {
+  //   const usersRef=doc(db,'docusers',session?.user?.uid)
+  //   setDoc(usersRef,{
+  //     id:session?.user?.uid,
+  //     email:session?.user?.email,
+  //     profileImg:session?.user?.image,
+  //     lastseen: serverTimestamp()
+  //   },{merge:true})
+  // };
   
   if(!session) return <Login/>
   

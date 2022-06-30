@@ -9,8 +9,8 @@ const Login = () => {
             <Image 
                     className='mr-36'
                     src="https://cdn.icon-icons.com/icons2/2072/PNG/512/arrow_entrance_in_internet_log_login_security_icon_127060.png"
-                    height="330"
-                    width='550'
+                    height="230"
+                    width='450'
                     objectFit='contain'
             />
             <Button 

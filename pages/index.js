@@ -20,6 +20,9 @@ import { onSnapshot,getFirestore  } from 'firebase/firestore';
 
 export default function Home() {
   const {data:session}= useSession();
+  if(!session){
+    return <Login/>
+  }
   const[open,setOpen]=useRecoilState(modalState)
   const [snapshot] = useCollectionOnce(query(collection(db,'userDocs',session?.user?.email,'docs'),orderBy("timestamp","desc")));
   

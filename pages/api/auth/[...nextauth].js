@@ -16,7 +16,8 @@ export default NextAuth({
             session.user.username=session.user.name
             session.user.uid=token.sub;
             return session
-        }
-      }
+        },
+      },
+      secret: process.env.JWT_SECRET
 })
 
